@@ -23,7 +23,7 @@ import javax.persistence.Persistence;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-/** Rewriting this with dynamic input:
+/** Rewriting this with dynamic input instead of enum:
  * Pass the parsing instruction Array to this.
  * Create a Map<String,Object> (should be static)
  * Create an object of itself and add to the map
