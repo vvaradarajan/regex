@@ -350,7 +350,7 @@ public class LinesToDB {
 			//lineToProcess="bind cs vserver us-cs.sit-443 -policyName cspol.lbsit1m7.us-spahw -priority 220";
 			lineToProcess = "   QUEUE(SECURITY.FROMSECMASTER.LQ)        TYPE(QLOCAL)";
 			System.out.println(lineToProcess+"\n"+ltt.parseLine(lineToProcess));
-			lineToProcess="bind cs vserver us-cs.sit-443 -policyName cspol.lbsit1m7.us-spahw -priority 220";
+			lineToProcess="bind cs vserver us-cs.sit-445 -policyName cspol.lbsit1m7.us-spahw -priority 220";
 			System.out.println(lineToProcess+"\n"+ltt.parseLine(lineToProcess));
 			System.exit(0);
 	    };
