@@ -341,7 +341,7 @@ public class LinesToDB {
 	    switch (parseFile) {
 	    case 1:
 			//String fileNM = "c:\\junk\\sunburst.conf.ets.cfm";
-			String fileNM = "c:\\junk\\C_ETDITQM2.txt";
+			String fileNM = "c:\\junk\\C_ETDITQM3.txt";
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory("mysqlTables"); //( "sqliteTables");
 			EntityManager em = emf.createEntityManager();
 			//LinesToTable.truncateTables(em); //(This should be a parameter - to truncate or not)
