@@ -200,7 +200,7 @@ public class LinesToDB {
 			 return insertStmt;
 		 }
 		}
-		logger.warn("No Match: " + line);
+		logger.debug("No Match: " + line);
 		return null;
 	}
 	
@@ -299,6 +299,12 @@ public class LinesToDB {
 			System.exit(0);
 	    };	
 	}
+	public static void logInfoOnLine(String lineToProcess,String parseResult,Logger logger) {
+		/* logs the line info */
+		logger.info("Processing line: " + lineToProcess+"\n"+
+			(parseResult == null? "No Match: Line Skipped":"Matched! Insert Statment: \n"+ parseResult)
+				);
+	}
 		
 	public static void main(String[] args) throws IOException, ParseException {
 	//
@@ -311,26 +317,25 @@ public class LinesToDB {
 				"command=([^\\s]*)\\s.*(?:-D)([^\\s]+).*","em_instanceDBList"
 				,"dataSvr,logicalDbName","inst=TBD"
 				));
-
-	    ltt.addParseLine(new LinesToTable.parser("csLine",
+		*/
+	    ltt.addParseLine(new LinesToDB.parser("csLine",
 				"bind cs vserver ([^\\s]*)\\s-policyName\\s([^\\s]*)\\s"
 						//+ "-targetLBVserver\\s([^\\s]*)\\s"
 						+ "(?:-targetLBVserver\\s([^\\s]*)\\s)?"
-						+ "-priority\\s([^\\s]*)(?:\\s.*|$)","em_ns_csBehind"
+						+ "-priority\\s([^\\s]*)(?:\\s.*|$)","ns_csBehind"
 				,"csVserver,policy,targetLb,priority",null
 				));
-				*/
-	    /*ltt.addParseLine(new LinesToTable.parser("qLine",
+
+	    ltt.addParseLine(new LinesToDB.parser("qLine",
 				"\\s*QUEUE\\(([^\\)\\(]+)\\)\\s*TYPE\\(([^\\)\\(]+)\\).*"
-	    		,"em_QM_queues"
-				,"QName,QType","QMName=ETSITQM2,env=sit"
-				));*/
+	    		,"QM_queues"
+				,"QName,QType","QMName=ETSITQM2,env=SysInt"
+				));
 	    ltt.addParseLine(new LinesToDB.parser("channelLine",
 				"\\s*CHANNEL\\(([^\\)\\(]+)\\)\\s*CHLTYPE\\(([^\\)\\(]+)\\).*"
-	    		,"em_QM_queues"
-				,"QName,QType","QMName=CH_ETDITQM2,env=dit"
+	    		,"QM_queues"
+				,"QName,QType","QMName=CH_DITQM2,env=DevInt"
 				));
-	    logger.info(ltt.toString());
 		
 	    int parseFile = 0;
 	    switch (parseFile) {
@@ -349,9 +354,9 @@ public class LinesToDB {
 			//lineToProcess = "command=SeqnCtrlSvr -Q SeqnCtrl2  -s Order_Ets_GetEventNxtSqn:GETNEXTSEQN -- -SUSDTDIT -LY -Utuxuser -Ptuxedo -DETS_OrderEventDB -OADP";
 			//lineToProcess="bind cs vserver us-cs.sit-443 -policyName cspol.lbsit1m7.us-spahw -priority 220";
 			lineToProcess = "   QUEUE(SECURITY.FROMSECMASTER.LQ)        TYPE(QLOCAL)";
-			System.out.println(lineToProcess+"\n"+ltt.parseLine(lineToProcess));
+			LinesToDB.logInfoOnLine(lineToProcess, ltt.parseLine(lineToProcess), logger);
 			lineToProcess="bind cs vserver us-cs.sit-445 -policyName cspol.lbsit1m7.us-spahw -priority 220";
-			System.out.println(lineToProcess+"\n"+ltt.parseLine(lineToProcess));
+			LinesToDB.logInfoOnLine(lineToProcess, ltt.parseLine(lineToProcess), logger);
 			System.exit(0);
 	    };
 
