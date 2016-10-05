@@ -341,7 +341,7 @@ public class LinesToDB {
 	    switch (parseFile) {
 	    case 1:
 			//String fileNM = "c:\\junk\\sunburst.conf.ets.cfm";
-			String fileNM = "c:\\junk\\C_ETDITQM3.txt";
+			String fileNM = "c:\\junk\\C_DITQM3.txt";
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory("mysqlTables"); //( "sqliteTables");
 			EntityManager em = emf.createEntityManager();
 			//LinesToTable.truncateTables(em); //(This should be a parameter - to truncate or not)
@@ -349,14 +349,14 @@ public class LinesToDB {
 			//parseNetScaler("c:\\junk\\ns.conf");
 			System.exit(0);
 	    case 0:
-		//Test with string
-			String lineToProcess;
-			//lineToProcess = "command=SeqnCtrlSvr -Q SeqnCtrl2  -s Order_Ets_GetEventNxtSqn:GETNEXTSEQN -- -SUSDTDIT -LY -Utuxuser -Ptuxedo -DETS_OrderEventDB -OADP";
-			//lineToProcess="bind cs vserver us-cs.sit-443 -policyName cspol.lbsit1m7.us-spahw -priority 220";
-			lineToProcess = "   QUEUE(SECURITY.FROMSECMASTER.LQ)        TYPE(QLOCAL)";
+		//Test with a list of strings
+			ArrayList<String> linesToProcess = new ArrayList<String>();
+			linesToProcess.add("   QUEUE(SECURITY.FROMSECMASTER.LQ)        TYPE(QLOCAL)");
+			linesToProcess.add("command=SeqnCtrlSvr -Q SeqnCtrl2  -s Order_Ets_GetEventNxtSqn:GETNEXTSEQN -- -SUSDTDIT -LY -Utuxuser -Ptuxedo -DETS_OrderEventDB -OADP");
+			linesToProcess.add("bind cs vserver us-cs.sit-443 -policyName cspol.lbsit1m7.us-spahw -priority 220");
+			for (String lineToProcess:linesToProcess) {
 			LinesToDB.logInfoOnLine(lineToProcess, ltt.parseLine(lineToProcess), logger);
-			lineToProcess="bind cs vserver us-cs.sit-445 -policyName cspol.lbsit1m7.us-spahw -priority 220";
-			LinesToDB.logInfoOnLine(lineToProcess, ltt.parseLine(lineToProcess), logger);
+			}
 			System.exit(0);
 	    };
 
